@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="container-fluid">
+      <div class="row-12 text-center">
+        <h1>{{location}}</h1>
+        <h2>{{when}}</h2>
+      </div>
+    </div>
     <div>temp: {{tempature}} deg f</div>
     <div>
       <h1>Archival Data</h1>
@@ -25,12 +31,16 @@ export default {
     let weatherjson = await getJson(config.weatherURL);
     weatherjson;
     this.tempature = parseFloat(weatherjson.stats.current.outTemp);
+    this.location = weatherjson.location;
+    this.when = weatherjson.time;
   },
   data() {
     return {
       tempature: undefined,
       selectedMonth: undefined,
-      selectedYear: undefined
+      selectedYear: undefined,
+      location: undefined,
+      when: undefined
     };
   },
   computed: {
@@ -60,4 +70,5 @@ export default {
 </script>
 
 <style>
+@import "~bootstrap/dist/css/bootstrap.css";
 </style>
