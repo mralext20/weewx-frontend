@@ -6,7 +6,13 @@
         <h2>{{when}}</h2>
       </div>
     </div>
-    <div>temp: {{tempature}} deg f</div>
+    <div>outside: {{tempature}} deg f</div>
+    <div>inside: {{intemp}} deg f</div>
+    <div>wind: {{wind}}</div>
+    <div>rain Total: {{rainTotal}}</div>
+    <div>rain Rate: {{rainRate}}</div>
+    <div>High: {{high}} deg f at {{highWhen}}</div>
+    <div>Low: {{low}} deg f at {{lowWhen}}</div>
     <div>
       <h1>Archival Data</h1>
       <select @change="goToYear" v-model="selectedYear">
@@ -28,15 +34,22 @@ import config from "./config.js";
 export default {
   name: "weather",
   async mounted() {
-    let weatherjson = await getJson(config.weatherURL);
-    weatherjson;
-    this.tempature = parseFloat(weatherjson.stats.current.outTemp);
-    this.location = weatherjson.location;
-    this.when = weatherjson.time;
+    this.fetchWeatherData();
+    setTimeout(() => {
+      this.fetchWeatherData();
+    }, 5 * 60 * 1000); // 5 minutes
   },
   data() {
     return {
       tempature: undefined,
+      intemp: undefined,
+      rainTotal: undefined,
+      rainRate: undefined,
+      windSpeed: undefined,
+      windDirection: undefined,
+      windGust: undefined,
+      high: undefined,
+      low: undefined,
       selectedMonth: undefined,
       selectedYear: undefined,
       location: undefined,
@@ -64,6 +77,23 @@ export default {
     goToMonth() {
       let target = `NOAA/NOAA-${this.selectedMonth}.txt`;
       window.location = config.baseURL + target;
+    },
+    async fetchWeatherData() {
+      let weatherjson = await getJson(config.weatherURL);
+      weatherjson;
+      this.tempature = parseFloat(weatherjson.stats.current.outTemp);
+      this.low = parseFloat(weatherjson.stats.sinceMidnight.tempMinValue);
+      this.lowWhen = weatherjson.stats.sinceMidnight.tempMinTime;
+      this.high = parseFloat(weatherjson.stats.sinceMidnight.tempMaxValue);
+      this.highWhen = weatherjson.stats.sinceMidnight.tempMaxTime;
+      this.intemp = parseFloat(weatherjson.stats.current.insideTemp);
+      this.windSpeed = parseFloat(weatherjson.stats.current.windSpeed);
+      this.windDirection = parseFloat(weatherjson.stats.current.windDirection);
+      this.windGust = parseFloat(weatherjson.stats.current.windGust);
+      this.rainTotal = weatherjson.stats.sinceMidnight.rainSum;
+      this.rainRate = weatherjson.stats.current.rainRate;
+      this.location = weatherjson.location;
+      this.when = weatherjson.time;
     }
   }
 };
