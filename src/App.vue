@@ -67,6 +67,17 @@ export default {
         `${config.startingYear}-${config.startingMonth}`,
         `${now.getFullYear()}-${now.getMonth()}`
       );
+    },
+    wind() {
+      if (this.windSpeed == 0) {
+        return "No Wind";
+      }
+      let wind = `${this.windDirection} ${this.windSpeed}`;
+      if (this.windGust) {
+        wind += `G${this.windGust}`;
+      }
+      wind += " MPH";
+      return wind;
     }
   },
   methods: {
