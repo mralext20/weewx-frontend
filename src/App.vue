@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-fluid">
-      <div class="row-12 text-center">
+      <div class="row-12 text-center border mb-4 p-5">
         <h1>{{location}}</h1>
         <h2>{{when}}</h2>
       </div>
