@@ -14,6 +14,12 @@
     <p>High: {{high}} deg f at {{highWhen}}</p>
     <p>Low: {{low}} deg f at {{lowWhen}}</p>
     <div>
+      <a
+        v-for="page in pages"
+        :key="page"
+        class="btn mx-1 btn-primary"
+        :href="`${config.baseURL}/${page}`"
+      >{{page.replace('.html', '')}}</a>
       <h1>Archival Data</h1>
       <select @change="goToYear" v-model="selectedYear">
         <option disabled selected>-select Year-</option>
@@ -41,6 +47,8 @@ export default {
   },
   data() {
     return {
+      config,
+      pages: ["week.html", "month.html", "year.html"],
       tempature: undefined,
       intemp: undefined,
       rainTotal: undefined,
