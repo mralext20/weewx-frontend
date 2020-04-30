@@ -13,6 +13,9 @@
     <p>rain Rate: {{rainRate}}</p>
     <p>High: {{high}} deg f at {{highWhen}}</p>
     <p>Low: {{low}} deg f at {{lowWhen}}</p>
+    <div class="plots">
+      <img v-for="plot in plots" :key="plot" :src="`${config.baseURL}/${plot}`" />
+    </div>
     <div>
       <a
         v-for="page in pages"
@@ -49,6 +52,18 @@ export default {
     return {
       config,
       pages: ["week.html", "month.html", "year.html"],
+      plots: [
+        "daytempdew.png",
+        "daytempchill.png",
+        "dayrain.png",
+        "daywind.png",
+        "daybarometer.png",
+        "daywinddir.png",
+        "dayinside.png",
+        "daywindvec.png",
+        "dayinoutcompare.png",
+        "dayrx.png"
+      ],
       tempature: undefined,
       intemp: undefined,
       rainTotal: undefined,
