@@ -1,37 +1,41 @@
 <template>
-  <div>
-    <div class="container-fluid">
-      <div class="row-12 text-center border mb-4 p-5">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 border mb-4 p-5 text-center">
         <h1>{{location}}</h1>
         <h2>{{when}}</h2>
       </div>
-    </div>
-    <p>outside: {{tempature}} deg f</p>
-    <p>inside: {{intemp}} deg f</p>
-    <p>wind: {{wind}}</p>
-    <p>rain Total: {{rainTotal}}</p>
-    <p>rain Rate: {{rainRate}}</p>
-    <p>High: {{high}} deg f at {{highWhen}}</p>
-    <p>Low: {{low}} deg f at {{lowWhen}}</p>
-    <div class="plots">
-      <img v-for="plot in plots" :key="plot" :src="`${config.baseURL}/${plot}`" />
-    </div>
-    <div>
-      <a
-        v-for="page in pages"
-        :key="page"
-        class="btn mx-1 btn-primary"
-        :href="`${config.baseURL}/${page}`"
-      >{{page.replace('.html', '')}}</a>
-      <h1>Archival Data</h1>
-      <select @change="goToYear" v-model="selectedYear">
-        <option disabled selected>-select Year-</option>
-        <option v-for="year in years" :key="year" :value="year">{{year}}</option>
-      </select>
-      <select @change="goToMonth" v-model="selectedMonth">
-        <option disabled selected>-select Month-</option>
-        <option v-for="month in months" :key="month" :value="month">{{month}}</option>
-      </select>
+      <div class="col-3">
+        <p>outside: {{tempature}} deg f</p>
+        <p>inside: {{intemp}} deg f</p>
+        <p>wind: {{wind}}</p>
+        <p>rain Total: {{rainTotal}}</p>
+        <p>rain Rate: {{rainRate}}</p>
+        <p>High: {{high}} deg f at {{highWhen}}</p>
+        <p>Low: {{low}} deg f at {{lowWhen}}</p>
+      </div>
+      <div class="col-9">
+        <a v-for="plot in plots" :key="plot" :href="`${config.baseURL}/${plot}`">
+          <img :src="`${config.baseURL}/${plot}`" width="33%" />
+        </a>
+      </div>
+      <div class="col-12 text-center">
+        <a
+          v-for="page in pages"
+          :key="page"
+          class="btn mx-1 btn-primary"
+          :href="`${config.baseURL}/${page}`"
+        >{{page.replace('.html', '')}}</a>
+        <h1>Archival Data</h1>
+        <select @change="goToYear" v-model="selectedYear">
+          <option disabled selected>-select Year-</option>
+          <option v-for="year in years" :key="year" :value="year">{{year}}</option>
+        </select>
+        <select @change="goToMonth" v-model="selectedMonth">
+          <option disabled selected>-select Month-</option>
+          <option v-for="month in months" :key="month" :value="month">{{month}}</option>
+        </select>
+      </div>
     </div>
   </div>
 </template>
