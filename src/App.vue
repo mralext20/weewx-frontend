@@ -6,13 +6,13 @@
         <h2>{{when}}</h2>
       </div>
     </div>
-    <div>outside: {{tempature}} deg f</div>
-    <div>inside: {{intemp}} deg f</div>
-    <div>wind: {{wind}}</div>
-    <div>rain Total: {{rainTotal}}</div>
-    <div>rain Rate: {{rainRate}}</div>
-    <div>High: {{high}} deg f at {{highWhen}}</div>
-    <div>Low: {{low}} deg f at {{lowWhen}}</div>
+    <p>outside: {{tempature}} deg f</p>
+    <p>inside: {{intemp}} deg f</p>
+    <p>wind: {{wind}}</p>
+    <p>rain Total: {{rainTotal}}</p>
+    <p>rain Rate: {{rainRate}}</p>
+    <p>High: {{high}} deg f at {{highWhen}}</p>
+    <p>Low: {{low}} deg f at {{lowWhen}}</p>
     <div>
       <h1>Archival Data</h1>
       <select @change="goToYear" v-model="selectedYear">
